@@ -26,12 +26,12 @@ def add array #Method for adding new entries into array
     puts "what item?"
     new_item = gets.chomp.capitalize
     puts "what amount ($)?"
-    amount = gets.chomp.to_i
+    amount = gets.chomp.to_i 
     array << {Item: new_item, Month: new_month, Amount: amount}
 end
 
-#----------------- CODE RUNS BELOW ------------------########
 
+#----------------- CODE RUNS BELOW ------------------########
 while true #Ask questions for which option they would like; add, show, exit
     puts "What do you want to do"
     puts "Add a new revenue item (AR)"
@@ -69,7 +69,7 @@ total_expenses = expenses_array.reduce(0) {|sum, revenue_item| sum += revenue_it
         exp_table = Terminal::Table.new :headings => ['Month', 'Expenses'], :rows => exp_hash 
         puts exp_table
     when "SYE"
-       puts total_expenses 
+    puts total_expenses 
     when "SYP"
         total_profit = (total_revenue) - (total_expenses)
         if total_profit >= 0 
@@ -83,5 +83,6 @@ total_expenses = expenses_array.reduce(0) {|sum, revenue_item| sum += revenue_it
         puts "Invalid Command" 
 
     end
-end        
+end     
+
 
