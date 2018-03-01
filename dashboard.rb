@@ -27,7 +27,7 @@ def add array #Method for adding new entries into array
     new_item = gets.chomp.capitalize
     puts "what amount ($)?"
     amount = gets.chomp.to_i
-    array << {item: new_item, month: new_month, Amount: amount}
+    array << {Item: new_item, Month: new_month, Amount: amount}
 end
 
 #----------------- CODE RUNS BELOW ------------------########

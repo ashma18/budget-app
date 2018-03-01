@@ -1,26 +1,33 @@
 require 'colorize'
-require_relative 'sandwich'
+require_relative 'dashboard'
 
-def expect actual, expected
+def expect(actual, expected)
     if actual == expected then
-        puts "PASS"
+        puts "PASS".colorize(:green)
     else   
-        puts "FAIL"
+        puts "FAIL".colorize(:red)
     end
 
 end
 
-def test_for_cheese_sandwich
-    sandwich = make_sandwich type: "cheese", bread_count: 5
-    number_steps = sandwich.length
-    expect number_steps, 5
+# def test_rev_add
+#     sandwich = make_sandwich type: "cheese", bread_count: 5
+#     number_steps = sandwich.length
+#     expect number_steps, 5
     
-    step_2 = sandwich[1]
-    expect step_2, "take 5 pieces of bread"
 
+# end
+
+#Test that when method "Add" is used, n + 1 hashes are contained within array. Where n = number of initial 
+#hashes in array
+def test_rev_add
+    rev = revenue_array.length 
+    add(revenue_array)
+    new_rev = revenue_array.length
+    expect(new_rev, (rev) + 1) 
 end
 
-puts test_for_cheese_sandwich
+# puts test_for_cheese_sandwich
 
 
 
