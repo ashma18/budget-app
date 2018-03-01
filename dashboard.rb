@@ -35,14 +35,14 @@ end
 while true #Ask questions for which option they would like; add, show, exit
     puts "What do you want to do"
     puts "Add a new revenue item (AR)"
-    puts "Display monthly revenue (SAR)"
-    puts "Display total year revenue (SYR)"
+    puts "Show monthly revenue (SAR)"
+    puts "Show total year revenue (SMR)"
     puts "Add a new expense item (AE)"
-    puts "Display monthly expenses (SAE)"
-    puts "Display total year Expenses (SYE)"
-    puts "Display yearly profit (SYP)"
-    puts "Exit back to main menu (Exit)"
-choice = gets.chomp 
+    puts "Show monthly expenses (SME)"
+    puts "Show total year Expenses (SYE)"
+    puts "Show yearly profit (SYP)"
+    puts "Exit (Exit)"
+choice = gets.chomp.upcase
 total_revenue = revenue_array.reduce(0) {|sum, revenue_item| sum += revenue_item[:Amount]} 
 total_expenses = expenses_array.reduce(0) {|sum, revenue_item| sum += revenue_item[:Amount]} 
     case choice
@@ -54,30 +54,34 @@ total_expenses = expenses_array.reduce(0) {|sum, revenue_item| sum += revenue_it
             rev_hash[item[:Month].to_sym] += item[:Amount]
         end
         puts rev_hash
-        rev_table = Terminal::Table.new :rows => rev_hash
+        rev_table = Terminal::Table.new :headings => ['Month', 'Revenue'], :rows => rev_hash
         puts rev_table
-    when "SYR"
+    when "SMR"
         puts total_revenue 
     when "AE"
         add expenses_array
-    when "SAE" 
+    when "SME" 
         exp_hash = Hash.new(0)
         expenses_array.each do |item|
             exp_hash[item[:Month].to_sym] += item[:Amount]
         end
         puts exp_hash
-        exp_table = Terminal::Table.new :rows => exp_hash
+        exp_table = Terminal::Table.new :headings => ['Month', 'Expenses'], :rows => exp_hash 
         puts exp_table
     when "SYE"
        puts total_expenses 
     when "SYP"
         total_profit = (total_revenue) - (total_expenses)
-        puts total_profit
-    when "Exit"
+        if total_profit >= 0 
+            puts total_profit.to_s.colorize(:green)
+        else puts total_profit.to_s.colorize(:red)
+        end
+
+    when "EXIT"
         break
     else 
         puts "Invalid Command" 
-        break
+
     end
 end        
 
