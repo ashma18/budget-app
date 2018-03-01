@@ -10,13 +10,6 @@ def expect(actual, expected)
 
 end
 
-# def test_rev_add
-#     sandwich = make_sandwich type: "cheese", bread_count: 5
-#     number_steps = sandwich.length
-#     expect number_steps, 5
-    
-
-# end
 
 #Test that when method "Add" is used, n + 1 hashes are contained within array. Where n = number of initial 
 #hashes in array
@@ -29,7 +22,6 @@ end
 
 puts test_rev_add revenue_array
 
-# puts test_for_cheese_sandwich
 
 
 
