@@ -30,8 +30,16 @@ def add array #Method for adding new entries into array
     array << {Item: new_item, Month: new_month, Amount: amount}
 end
 
+def cat_sum array, category, items #Method for summing monthly data
+    cat_hash = Hash.new(0)
+    array.each do |hash|
+        cat_hash[hash[category].to_sym] += hash[items] 
+    end
+    cat_hash
+end
 
 #----------------- CODE RUNS BELOW ------------------########
+puts "Welcome to the Budget Tool!".colorize(:green)
 while true #Ask questions for which option they would like; add, show, exit
     puts "What do you want to do"
     puts "Add a new revenue item (AR)"
@@ -46,27 +54,19 @@ choice = gets.chomp.upcase
 total_revenue = revenue_array.reduce(0) {|sum, revenue_item| sum += revenue_item[:Amount]} 
 total_expenses = expenses_array.reduce(0) {|sum, revenue_item| sum += revenue_item[:Amount]} 
     case choice
-    when "AR" #When usre wants to add new revenue item, collect information. 
+    when "AR" #When user wants to add new revenue item, collect information. 
         add revenue_array
     when "SMR" #show all available months in a table
-        rev_hash = Hash.new(0)
-        revenue_array.each do |item|
-            rev_hash[item[:Month].to_sym] += item[:Amount]
-        end
-        puts rev_hash
-        rev_table = Terminal::Table.new :headings => ['Month', 'Revenue'], :rows => rev_hash
+        month_sum_rev = cat_sum revenue_array, :Month, :Amount
+        rev_table = Terminal::Table.new :headings => ['Month', 'Revenue'], :rows => month_sum_rev
         puts rev_table
     when "SYR" #Show Yearly Revenue
         puts total_revenue 
     when "AE" #when user wants to add new expense item, collect information
         add expenses_array
     when "SME" #show all available months in a table
-        exp_hash = Hash.new(0)
-        expenses_array.each do |item|
-            exp_hash[item[:Month].to_sym] += item[:Amount]
-        end
-        puts exp_hash
-        exp_table = Terminal::Table.new :headings => ['Month', 'Expenses'], :rows => exp_hash 
+        month_sum_exp = cat_sum expenses_array, :Month, :Amount
+        exp_table = Terminal::Table.new :headings => ['Month', 'Expenses'], :rows => month_sum_exp
         puts exp_table
     when "SYE" #Show Yearly Expenses
     puts total_expenses 
